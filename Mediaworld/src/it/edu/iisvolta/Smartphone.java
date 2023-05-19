@@ -9,7 +9,8 @@ public class Smartphone extends Dispositivo {
 	private SIM scheda;
 	
 	
-	public Smartphone(String marca, String modello, int pollici, int megaPixel, String presa) {
+	public Smartphone(String marca, String modello, int pollici, 
+			int megaPixel, String presa) {
 		super(marca, modello);
 		this.pollici = pollici;
 		this.megaPixel = megaPixel;
@@ -20,15 +21,21 @@ public class Smartphone extends Dispositivo {
 	public void inserisciSIM(SIM scheda) {
 		if (this.scheda!=null)
 			System.out.println("Scheda già presente");
-		else
+		else 
+		{
 			this.scheda=scheda;
+			System.out.println("Scheda inserita");
+		}
 	}
 	
-	public void rimuoviSIM(SIM scheda) {
+	public void rimuoviSIM() {
 		if (this.scheda==null)
 			System.out.println("Nessuna scheda presente");
 		else
+		{
 			this.scheda=null;
+			System.out.println("Scheda rimossa");
+		}
 	}
 	
 	public void telefona(int durata) {		//durata in minuti

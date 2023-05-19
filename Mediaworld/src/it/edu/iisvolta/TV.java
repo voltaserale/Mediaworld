@@ -42,5 +42,20 @@ public class TV extends Dispositivo {
 		
 	}
 	
+	public void guardaCanale(int nrCanale) {
+		boolean trovato=false;
+		for(Canale c:canali) {
+			if (c.getNumero()==nrCanale)
+			{
+				trovato=true;
+				System.out.println(
+					"Stai guardando il canale "+c.getNome()+
+					" frequenza "+c.getFrequenza()+" Mhz");
+			}
+		}
+		if (!trovato)
+			System.out.println("Canale non trovato");
+	}
+	
 	
 }
