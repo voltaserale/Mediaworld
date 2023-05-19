@@ -15,15 +15,20 @@ public class Dispositivo {
 	public void accendi() {
 		if (stato)
 			System.out.println("Disposivo già acceso");
-		else
+		else {			
 			stato=true;
+			System.out.println("Dispositivo acceso");
+		}
+			
 	}
 	
 	public void spegni() {
 		if (!stato)
 			System.out.println("Disposivo già spento");
-		else
+		else {
 			stato=false;
+			System.out.println("Dispositivo spento");
+		}
 	}
 
 	public boolean getStato() {

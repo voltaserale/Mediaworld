@@ -50,7 +50,9 @@ public class Smartphone extends Dispositivo {
 		else  //posso telefonare
 		{
 			scheda.setCredito(scheda.getCredito()-durata*0.1f);
-			System.out.println("Chiamata effettuata");
+			System.out.println(
+				"Chiamata effettuata. Credito residuo: "+
+				scheda.getCredito());
 		}
 	}
 

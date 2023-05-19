@@ -77,6 +77,7 @@ public class Main {
                 		System.out.println("Importo non valido: "+ex.getMessage());
                 	}   
             	}
+            	break;
             case "4":
             	System.out.print("Inserisci la marca: ");
             	String marca=s.nextLine();
@@ -128,6 +129,10 @@ public class Main {
             			System.out.println("non inserita");
             		else
             			System.out.println("presente. Credito: "+telefono.getScheda().getCredito());
+            		if (telefono.getStato())
+            			System.out.println("Stato: acceso");
+            		else
+            			System.out.println("Stato: spento");
             	}
             	break;
             case "6":
@@ -135,7 +140,27 @@ public class Main {
             		telefono.inserisciSIM(scheda);
             	else
             		telefono.rimuoviSIM();
-            	break();
+            	break;
+            case "7":
+            	if (telefono.getStato()==false)
+            		telefono.accendi();
+            	else
+            		telefono.spegni();
+            	break;
+            case "8":
+            	if(telefono.getStato()) 
+            	{
+	            	int durata;            	
+	            	System.out.println("Inserisci la durata: ");
+	            	try {
+	            		durata=Integer.parseInt(s.nextLine());   
+	            		telefono.telefona(durata);
+	            	} catch(NumberFormatException ex) {
+	            		System.out.println("Durata non valida: "+ex.getMessage());
+	            	}
+            	} else
+            		System.out.println("Telefono spento");
+            	break;
             }
             
             
