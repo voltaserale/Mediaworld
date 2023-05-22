@@ -10,6 +10,8 @@ public class Main {
 	public static void main(String[] args) {
 		Scanner s=new Scanner(System.in);
 		String scelta;
+		String marca, modello;
+		int pollici;
 		
 		SIM scheda=null;
 		Smartphone telefono=null;
@@ -80,11 +82,11 @@ public class Main {
             	break;
             case "4":
             	System.out.print("Inserisci la marca: ");
-            	String marca=s.nextLine();
+            	marca=s.nextLine();
             	System.out.print("Inserisci il modello: ");            	
-            	String modello=s.nextLine();
+            	modello=s.nextLine();
             	
-            	int pollici=0;
+            	pollici=0;
             	do {
             		System.out.print("Inserisci i pollici: ");  
             		try {
@@ -136,32 +138,145 @@ public class Main {
             	}
             	break;
             case "6":
-            	if (telefono.getScheda()==null)
-            		telefono.inserisciSIM(scheda);
+            	if(telefono==null)
+            		System.out.println("Telefono non creato");
             	else
-            		telefono.rimuoviSIM();
-            	break;
-            case "7":
-            	if (telefono.getStato()==false)
-            		telefono.accendi();
-            	else
-            		telefono.spegni();
-            	break;
-            case "8":
-            	if(telefono.getStato()) 
             	{
-	            	int durata;            	
-	            	System.out.println("Inserisci la durata: ");
-	            	try {
-	            		durata=Integer.parseInt(s.nextLine());   
-	            		telefono.telefona(durata);
-	            	} catch(NumberFormatException ex) {
-	            		System.out.println("Durata non valida: "+ex.getMessage());
+	            	if (telefono.getScheda()==null)
+	            		telefono.inserisciSIM(scheda);
+	            	else
+	            		telefono.rimuoviSIM();
+	            	break;
+            	}
+            case "7":
+            	if(telefono==null)
+            		System.out.println("Telefono non creato");
+            	else
+            	{
+	            	if (telefono.getStato()==false)
+	            		telefono.accendi();
+	            	else
+	            		telefono.spegni();
+	            	break;
+            	}
+            case "8":
+            	if(telefono==null)
+            		System.out.println("Telefono non creato");
+            	else
+            	{
+	            	if(telefono.getStato()) 
+	            	{
+		            	int durata;            	
+		            	System.out.println("Inserisci la durata: ");
+		            	try {
+		            		durata=Integer.parseInt(s.nextLine());   
+		            		telefono.telefona(durata);
+		            	} catch(NumberFormatException ex) {
+		            		System.out.println("Durata non valida: "+ex.getMessage());
+		            	}
+	            	} else
+	            		System.out.println("Telefono spento");
 	            	}
-            	} else
-            		System.out.println("Telefono spento");
             	break;
+            case "9":
+            	System.out.print("Inserisci la marca: ");
+            	marca=s.nextLine();
+            	System.out.print("Inserisci il modello: ");            	
+            	modello=s.nextLine();
+            	
+            	pollici=0;
+            	do {
+            		System.out.print("Inserisci i pollici: ");  
+            		try {
+                		pollici=Integer.parseInt(s.nextLine());    
+                		if (pollici<0)		//numero intero negativo (non va in catch)
+                			System.out.println("Numero di pollici non valido");
+                	} catch(NumberFormatException ex) {
+                		System.out.println("Numero di pollici non valido: "+ex.getMessage());
+                	}
+            	} while (pollici<=0);
+            	
+            	System.out.print("Inserisci il sistema operativo: ");
+            	String sistOp=s.nextLine();
+            	String smart;
+            	do {
+            		System.out.print("La TV è smart (sì/no): ");            	
+                	smart=s.nextLine();
+                	if (!smart.equals("sì") && !smart.equals("no"))
+                		System.out.println("Risposta non valida!");
+            	} while (!smart.equals("sì") && !smart.equals("no"));
+            	
+            	boolean isSmart=false;
+            	if (smart.equals("sì"))
+            		isSmart=true;            	
+            	
+            	televisore=new TV(marca, modello, pollici, isSmart, sistOp);
+            	
+            	break;
+            case "10":
+            	if(televisore==null)
+            		System.out.println("TV non creata");
+            	else
+            	{
+            		System.out.println("Marca: "+televisore.getMarca());
+            		System.out.println("Modello: "+televisore.getModello());
+            		System.out.println("Pollici: "+televisore.getPollici());  
+            		System.out.println("Sistema operativo: "+televisore.getSistemaOperativo());   
+            		System.out.print("Smart: ");
+            		if (televisore.isSmart())
+            			System.out.println("sì");
+            		else
+            			System.out.println("no");    
+            		if (televisore.getStato())
+            			System.out.println("Stato: acceso");
+            		else
+            			System.out.println("Stato: spento");
+            	}
+            	break;
+            case "11":
+            	if(televisore==null)
+            		System.out.println("TV non creata");
+            	else
+            	{
+	            	if (televisore.getStato()==false)
+	            		televisore.accendi();
+	            	else
+	            		televisore.spegni();
+	            	break;
+            	}
+            	break;
+            case "12":
+            	if(televisore==null)
+            		System.out.println("TV non creata");
+            	else
+            	{
+            		televisore.sintonizza();
+            	}
+            	break;
+            case "13":
+            	if(televisore==null)
+            		System.out.println("TV non creata");
+            	else
+            	{
+            		//inserisco il canale
+            		int canale=0;
+                	do {
+                		System.out.print("Inserisci il canale da guardare: ");  
+                		try {
+                			canale=Integer.parseInt(s.nextLine());    
+                    		if (canale<1 || canale>televisore.getCanali().size())		//numero intero negativo (non va in catch)
+                    			System.out.println("Canale non valido");
+                    	} catch(NumberFormatException ex) {
+                    		System.out.println("Canale non valido: "+ex.getMessage());
+                    	}
+                	} while (canale<=0);
+            		televisore.guardaCanale(canale);
+            	}
+            	break;
+            
             }
+            
+            
             
             
             	
